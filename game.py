@@ -1,40 +1,61 @@
-print("~~GAME NAME~~")
+# Before game functions
+import time
+
+def slowprint(text, delay=0.07):
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+# Changing variables
+
+player_stats = {"Health": 100, "Stress": 0, "Money": 50}
+day = 1
+current_area = "bedroom"
+
+# starting zone
+
+slowprint("~~GAME NAME~~")
 
 name = input("What is your name? ").capitalize()
 if name == "Scarlet":
-    print("Sorry, that names not available")
+    slowprint("Sorry, that names not available")
 
 class Area:
     def __init__(self):
         self.name = 0
         self.description = 0
         self.exits = 0
+        self.look = 0
+        self.interact = 0
 
     def print_area(self):
-        print(f"You are in {self.name}.")
-        print(self.description)
-        print("What would you like to do?")
-        command = input("~Travel, Look, Interact~ ").lower()
-
+        slowprint(f"You are in {self.name}.")
+        slowprint(self.description)
+        #!!!!!!!!!!reask from here
+        slowprint("What would you like to do?")
+        command = input("~Travel, Look, Interact, stats~ ").lower()
+        
         if command == "travel":
-            print("Where do you want to go?")
+            slowprint("Where do you want to go?")
             command = input(f"~{self.exits}, back~ ").lower()
             if command == self.exits:
-                print(f"You walk to {self.exits}")
+                slowprint(f"You walk to {self.exits}")
                 current_area = {self.exits}
-                # add smt to print out next areas stuff
+                #!!!!!! add smt to print out next areas stuff
             if command == "back":
-                print("You've changed your mind.")
-                # make it avaible to redo the "what would you like to do" to run though these 3 if statments again
+                slowprint("You've changed your mind.")
+                #!!!!!!!! make it avaible to redo the "what would you like to do" to run though these 3 if statments again
 
         if command == "look":
-            print(self.look)
+            slowprint(self.look)
             # make it avaible to redo Nhe "what would you like to do" to run though these 3 if statments again
 
         if command == "interact":
-            print(self.interact)
+            slowprint(self.interact)
 
-current_area = "bedroom"
+        if command == "stats":
+            slowprint(f"{name}'s stats. Health:{player_stats['Health']} Stress:{player_stats['Stress']} Money:{player_stats['Money']}")
 
 bedroom = Area()
 bedroom.name = "Bedroom"
@@ -68,8 +89,3 @@ livingroom = Area()
 livingroom.name = "Living room"
 livingroom.description = "The living room seems darker then normal."
 livingroom.exits = "Stairs, Kitchen, Yard,"
-
-player_stats = {"Health": 100, "Stress": 0, "Money": 50}
-
-if command == "stats":
-    print(f"{name}'s stats. Health:{player_stats['Health']} Stress:{player_stats['Stress']} Money:{player_stats['Money']}")
