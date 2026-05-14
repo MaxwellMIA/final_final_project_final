@@ -1,5 +1,6 @@
 # Before game functions
 import time
+import random
 from colorama import Fore
 
 def slowprint(text, delay=0): #0.07
@@ -13,9 +14,11 @@ def slowprint(text, delay=0): #0.07
 
 slowprint("~~GAME NAME~~")
 
-name = input("What is your name? ").capitalize()
-if name == "Scarlet":
-    slowprint("Sorry, that names not available")
+def naming(name):
+    name = input("What is your name? ").capitalize()
+    if name == "Scarlet":
+        slowprint("I'm glad you still think of me, but you can't use my name!")
+        naming(name)
 
 def print_day(day):
     if day == 1:
@@ -32,7 +35,7 @@ def print_day(day):
         time.sleep(0.7)
         slowprint("Goals:")
         slowprint("Find a gift for Scarlet before the eleventh.")
-        slowprint("Find something to eat.")
+        slowprint("Find something to eat.\n")
     if day == 2:
         slowprint("Day two.")
         time.sleep(0.7)
@@ -47,7 +50,7 @@ def print_day(day):
             slowprint("Find a gift for Scarlet before the eleventh.")
         else:
             slowprint("Give Scarlet your gift on the eleventh.")
-        slowprint("Check the notification on you computer.")
+        slowprint("Check the notification on you computer.\n")
     if day == 3:
         slowprint("Day three.")
         time.sleep(0.7)
@@ -64,7 +67,7 @@ def print_day(day):
             slowprint("Give Scarlet your gift tomorrow.")
         slowprint("Take a shower.")
         slowprint("Brush your hair.")
-        slowprint("Do some laundry.")
+        slowprint("Do some laundry.\n")
     if day == 4:
         if day == 4:
             slowprint("Day four.")
@@ -113,7 +116,7 @@ class Area:
         self.look = look
         self.interact = interact
  
-def print_area(current_area):
+def print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name):
     slowprint(f"You are in the {current_area.name}.")
     slowprint("What would you like to do?")
     command = input("~Travel, Look, Interact, Inventory, Stats~ ").lower()
@@ -124,107 +127,141 @@ def print_area(current_area):
         if command == "bedroom" and current_area == hallway:
             current_area = bedroom
             slowprint(f"You walk to your bedroom\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "hallway" and (current_area == bedroom or current_area == bathroom or current_area == stairs):
             current_area = hallway
             slowprint(f"You walk to the hallway\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "bathroom" and current_area == hallway:
             current_area = bathroom
             slowprint(f"You walk to the bathroom\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "stairs" and (current_area == hallway or current_area == livingroom):
             current_area = stairs
             slowprint(f"You walk to the stairs\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "living room" and (current_area == stairs or current_area == kitchen or current_area == yard or current_area == frontdoor):
             current_area = livingroom
             slowprint(f"You walk to the living room\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "kitchen" and current_area == livingroom:
             current_area = kitchen
             slowprint(f"You walk to the kitchen\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "yard" and current_area == livingroom:
             if yardkey == True:
                 current_area = yard
                 slowprint(f"You walk to out to the yard\n")
-                print_area(current_area)
+                print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
             else:
                 slowprint(f"You go to back door, but you realize you don't have your key.")
                 slowprint(f"You'll need to find your key first before going out back.")
-                print_area(livingroom)
+                print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "front door" and current_area == livingroom:
             current_area = frontdoor
             slowprint(f"You walk to the front door\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "plaza" and (current_area == frontdoor or current_area == park or current_area ==  grocery or current_area == jewelry or current_area == sports):
             current_area = plaza
             slowprint(f"You walk to the plaza\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "home" and current_area == plaza:
             current_area = frontdoor
             slowprint(f"You walk back home")
             slowprint("You walk back inside\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
         
         if command == "park" and (current_area == plaza or current_area == field):
             current_area = park
             slowprint(f"You walk to the park\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "field" and (current_area == park or current_area == woods):
             current_area = field
             slowprint(f"You walk to the open field\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "woods" and current_area == field:
             current_area = woods
             slowprint(f"You walk into the woods\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if (command == "grocery" or command == "grocery store") and current_area == plaza:
             current_area = grocery
             slowprint(f"You walk to the grocery store\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if (command == "jewelry" or command == "jewelry store") and current_area == plaza:
             current_area = jewelry
             slowprint(f"You walk to the jewlry store\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if (command == "sports" or command == "sports store") and current_area == plaza:
             current_area = sports
             slowprint(f"You walk to the sports store\n")
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "back":
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command != "bedroom" or command != "bathroom" or command != "hallway" or command != "stairs" or command != "living room" or command != "kitchen" or command != "yard" or command != "front door" or command !="plaza" or command !="home" or command !="park" or command !="field" or command !="woods" or command !="grocery" or command !="grocery store" or command !="jewelry" or command !="jewelry store" or command !="sports" or command !="sports store":
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
     if command == "look":
         slowprint(current_area.description)
         slowprint(current_area.look)
-        print_area(current_area)
+        print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
     if command == "interact":
         slowprint(current_area.interact)
-        command = input("What would you like to interact with? ")
+        command = input("What would you like to interact with? ").lower()
 
         if command == "bed" and current_area == bedroom:
-            #do the day tasks and days and day 4 task for 3 and sleep
-            slowprint("i")
+            if day == 1 and day1task == False or day == 2 and day2task == False or day == 3 and day3task == False:
+                slowprint("You look at your bed.")
+                slowprint("You want to sleep, but you still have things to do.\n")
+                print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
+            if day == 1 and day1task == True:
+                slowprint("You look at your bed.")
+                slowprint("You yawn and climb in, going to sleep.\n")
+                day = 2
+                print_day(day)
+                print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
+            if day == 2 and day2task == True:
+                slowprint("You look at your bed.")
+                slowprint("You yawn and climb in, going to sleep.\n")
+                day = 3
+                print_day(day)
+                print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
+            if day == 3 and day3task == True:
+                if gift == "none":
+                    slowprint("WARNING!")
+                    slowprint("You don't have a gift for tomorrow.")
+                    slowprint("Do you want to move onto the next day?")
+                    command = input("Yes, No").lower()
+                    if command == "yes":
+                        slowprint("You look at your bed.")
+                        slowprint("You yawn and climb in, going to sleep.\n")
+                        day = 4
+                        print_day(day)
+                    if command == "no":
+                        slowprint("You look at your bed.")
+                        slowprint("You want to sleep but you still have things to do.\n")
+                        print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
+                if gift != "none":
+                    slowprint("You look at your bed.")
+                    slowprint("You yawn and climb in, going to sleep.\n")
+                    day = 4
+                    print_day(day)
 
         if command == "desk" and current_area == bedroom:
             slowprint("You walk over to your desk, sitting down.")
@@ -232,41 +269,114 @@ def print_area(current_area):
             command = input("~Computer, Drawer, Notes, Back~ ").lower()
             if command == "computer":
                 if day != 2:
-                    slowprint("You go to your computer, but you don't have any messages.")
-                    print_area(current_area)
+                    slowprint("You go to your computer, but you don't have any messages.\n")
+                    print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
                 if day == 2:
-                    slowprint("You open your computer, opening up your messages.")
-                    #messages
-                    print_area(current_area)
-
+                    slowprint("You open your computer, opening up your messages.\n")
+                    # messages
+                    print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
             if command == "drawer":
                 if drawermoney == True:
                     slowprint("You open the drawer, grabbing your wallet.")
-                    slowprint("You now have $50.")
+                    slowprint("You now have $50.\n")
                     drawermoney = False
-                    print_area(current_area)
+                    print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
                 if drawermoney == False:
-                    slowprint("You open the drawer, but there isn't anything left inside.")
-                    print_area(current_area)
-
+                    slowprint("You open the drawer, but there isn't anything left inside.\n")
+                    print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
             if command == "notes":
                 slowprint("You look at the sticky notes that scatter your desk.")
                 slowprint("Most of them aren't useful anymore, but you look at the one your mom left you before she left.")
                 slowprint(f"'I'll be gone until the 13th. I made you dinner for tonight. Love you {name}.'")
-                slowprint("You sigh and put the note back.")
-                print_area(current_area)
+                slowprint("You sigh and put the note back.\n")
+                print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
         if command == "bookshelf" and current_area == bedroom:
-            slowprint("")
+            slowprint("You go to your bookshelf, looking at the few books you haven't bothered to move yet.")
+            slowprint("What book would you like to look at?")
+            if photoalbumshelf == True:
+                command = input("~Photo album, Book set, Diary, Back~ ").lower()
+                if command == "photo album":
+                    slowprint("You grab the photo album, looking at the first few photos.")
+                    slowprint("They are all photos of you and Scarlet.")
+                    slowprint("You wonder if this would be a good birthday gift.")
+                    slowprint("Do you want to give Scarlet this gift?")
+                    command = input("Yes, No").lower()
+                    if command == "yes":
+                        slowprint("You put the photo album in your bag.\n")
+                        gift = "photo album"
+                        photoalbumshelf == False
+                        print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
+                    if command == "no":
+                        slowprint("You put the photo album back.\n")
+                        print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
+                if command == "book set":
+                    slowprint("You grab the first book from the book set.")
+                    slowprint("It's in a language you don't understand.")
+                    slowprint("You think one of your older friends gave this to you before she moved.")
+                    slowprint("You frown and put the book back.\n")
+                    print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
+                if command == "diary":
+                    slowprint("You look at your diary for a few minutes.")
+                    slowprint("You can't remember the last time you wrote in it.")
+                    slowprint("You continue to look at your diary.")
+                    slowprint("You suddenly feel sick to your stomach.")
+                    slowprint("You finally look away, feeling your heart pounding in your chest.\n")
+                    player_stats["Stress"] += 10
+                    if player_stats["Stress"] >= 100:
+                        stressdeath()
+                    print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
+
+        if command == "drawer" and current_area == hallway:
+            slowprint("You open the drawer, but all that's inside is a few pens and paper clips.")
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
+
+        if command == "mirror" and current_area == bathroom:
+            if randomfear == False:
+                num = random.randint(1, 50)
+                if num == 25:
+                    slowprint("You look at the mirror for a few seconds.")
+                    slowprint("It doesn't look like you anymore.")
+                    slowprint("You raise your hand, hitting the mirror as hard as you can.")
+                    slowprint("The mirror shatters as you hit it, cutting your hand.\n")
+                    randomfear == True
+                    player_stats["Stress"] += 30
+                    if player_stats["Stress"] >= 100:
+                        stressdeath()
+                    player_stats["Health"] -= 10
+                    if player_stats["Stress"] >= 100:
+                        healthdeath()
+                slowprint("You look at the mirror, but something feels off.")
+                slowprint("Your stomach starts to ache.\n")
+                player_stats["Stress"] += 5
+                if player_stats["Stress"] >= 100:
+                    stressdeath()
+            if randomfear == True:
+                slowprint("The mirror is shattered.")
+                slowprint("It doesn't bother you anymore.\n")
+            # Washer & Drier, Bathtub
+        
+        if (command == "washer & drier" or command == "washer" or command == "drier" or command == "washer + drier" or command == "washer&drier") and current_area == bathroom:
+            if day != 3:
+                slowprint("You should probably do some laundry soon, but you don't feel like it now.")
+            if day == 3:
+                if laundrytask == False:
+                    slowprint("You turn on the washing machine,")
+
+        if command == "" and current_area == "hi":
+            slowprint("i")
+
+        if command == "" and current_area == "hi":
+            slowprint("i")
 
         if command == "" and current_area == "hi":
             slowprint("i")
 
         if command == "back":
-            print_area(current_area)
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
         
-        if command != "":
-            print_area(current_area)
+        if command != "bed" or command != "desk" or command != "bookshelf" or command != "drawer" or command != "":
+            print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
 
     if command == "inventory":
         if inventory == "empty":
@@ -278,6 +388,12 @@ def print_area(current_area):
     if command == "stats":
         slowprint(f"{name}'s stats. Health:{player_stats['Health']} Stress:{player_stats['Stress']} Money:{player_stats['Money']}")
 
+
+def stressdeath():
+    slowprint("you die via stress")
+
+def healthdeath():
+    slowprint("you die via brian death")
 # Areas
 
 bedroom = Area("Bedroom", "It's your bedroom. It seems messier then it was yesterday.", "Hallway", "It's your childhood bedroom, the walls have faded in color over the years. Trash litters your desk and the floor, while your bed is covered in dirty clothes you haven't feel like moving.", "Bed, Desk, Bookshelf, Back")
@@ -310,24 +426,22 @@ jewelry = Area("Jewelry store", "walking in", "plaza", "look", "interact")
 
 sports = Area("Sports store", "walking in", "plaza", "look", "interact")
 
-# Key and non-key items
-
+# hi
+photoalbumshelf = True
 yardkey = False
 gift = "none"
 day1task = False
 day2task = False
 day3task = False
 drawermoney = True
-
 invsalad = False
 invsteak = False
-
-# Changing variables
-
-player_stats = {"Health": 100, "Stress": 0, "Money": 50}
 inventory = "empty"
-
+player_stats = {"Health": 100, "Stress": 0, "Money": 50}
 day = 1
-current_area = bedroom
+randomfear = False
+current_area = bathroom
+name = ''
+naming(name)
 print_day(day)
-print_area(current_area)
+print_area(current_area, day, gift, photoalbumshelf, player_stats, drawermoney, name)
