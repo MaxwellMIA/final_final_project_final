@@ -441,6 +441,7 @@ player_stats = {"Health": 100, "Stress": 0, "Money": 50}
 day = 1
 randomfear = False
 current_area = bathroom
+laundrytask = False
 name = ''
 naming(name)
 print_day(day)
