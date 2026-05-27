@@ -1,6 +1,6 @@
 import time
 import sys
-def slowprint(text, delay=0.07):
+def slowprint(text, delay=0.05):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)
