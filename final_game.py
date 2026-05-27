@@ -295,8 +295,8 @@ def endings(finalgift):
         slowprint("She looks like she wants to say more, but she doesn't") 
         slowprint("'I don't wear much jewelry anymore, but it's better than nothing.'")
         slowprint("'I should go. But thanks. Really.'")
-        slowprint("Before you can respond, she turns and walks off.")
-        slowprint("Ending 3/5")
+        slowprint("Before you can respond, she turns and walks off.\n")
+        slowprint("\nEnding 3/5")
         sys.exit("At least you got her something.")
     elif finalgift == "soccerball":
         slowprint("'Do you know what day it is?' She beamed, looking at you with hope.")
@@ -322,8 +322,8 @@ def endings(finalgift):
         slowprint("'This was a good idea. Really good.'")
         slowprint("'We should do this again sometime. Properly. No excuses.'")
         slowprint("You look shocked, but you can't help but argee.")
-        slowprint("Maybe everything will be okay again.")
-        slowprint("Ending 4/5")
+        slowprint("Maybe everything will be okay again.\n")
+        slowprint("\nEnding 4/5")
         sys.exit("Friends again, maybe this time it can last.")
     elif finalgift == "photo album":
         slowprint("'Do you know what day it is?' She beamed, looking at you with hope.")
@@ -343,8 +343,8 @@ def endings(finalgift):
         slowprint("When she finally lets go, she doesn't step back far, and you're thankful for that.")
         slowprint("'I don't even care about the day anymore'")
         slowprint("'I'm just glad it's you.'")
-        slowprint("She hugs you again, and you this time you don't want to let go.")
-        slowprint("Ending 5/5")
+        slowprint("She hugs you again, and you this time you don't want to let go.\n")
+        slowprint("\nEnding 5/5")
         sys.exit("Best friend again, no matter what.")
 
 def stress():
